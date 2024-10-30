@@ -12,3 +12,7 @@ for (i in 1:10){
   fits = llr(z = z, x = french_fries$potato, y = french_fries$buttery, omega = i)
   plot(z, fits, main = paste("llr with ω =", i),  xlab= expression(z), ylab = expression(hat(f)(z)))
 }
+
+
+
+#### test new branch
