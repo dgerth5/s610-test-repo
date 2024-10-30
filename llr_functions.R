@@ -3,10 +3,22 @@ llr = function(x, y, z, omega) {
   return(fits)
 }
 
+# compute_f_hat = function(z, x, y, omega) {
+#   Wz = make_weight_matrix(z, x, omega)
+#   X = make_predictor_matrix(x)
+#   f_hat = c(1, z) %*% solve(t(X) %*% Wz %*% X) %*% t(X) %*% Wz %*% y
+#   return(f_hat)
+# }
+
+
 compute_f_hat = function(z, x, y, omega) {
   Wz = make_weight_matrix(z, x, omega)
   X = make_predictor_matrix(x)
-  f_hat = c(1, z) %*% solve(t(X) %*% Wz %*% X) %*% t(X) %*% Wz %*% y
+  
+  WzX = apply(X, 2, function(col) col * diag(Wz))
+  Wzy = y * diag(Wz)
+  
+  f_hat = c(1, z) %*% solve(t(X) %*% WzX) %*% t(X) %*% Wzy
   return(f_hat)
 }
 
